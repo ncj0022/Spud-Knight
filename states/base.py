@@ -6,7 +6,7 @@ class BaseState(object):
         self.quit = False
         self.next_state = None
         self.screen_rect = pygame.display.get_surface().get_rect()
-        self.persist = {}
+        self.persist = {"PLAYER", "ENEMY"}
         self.font = pygame.font.Font(None, 24)
 
     def startup(self, persistent):
