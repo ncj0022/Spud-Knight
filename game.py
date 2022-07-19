@@ -1,8 +1,10 @@
 import pygame
 
+# Game class
 class Game(object):
     def __init__(self, screen, states, start_state):
         self.done = False
+        self.battle = False
         self.screen = screen
         self.states = states
         self.clock = pygame.time.Clock()
@@ -10,10 +12,12 @@ class Game(object):
         self.state_name = start_state
         self.state = self.states[self.state_name]
 
+    # Handle all in game events
     def event_loop(self):
         for event in pygame.event.get():
             self.state.get_event(event)
 
+    # Change game state
     def flip_state(self):
         current_state = self.state_name
         next_state = self.state.next_state
@@ -30,10 +34,11 @@ class Game(object):
             self.flip_state()
         self.state.update(dt)
 
-
+    # Draw game to screen
     def draw(self):
         self.state.draw(self.screen)
 
+    # Run game class
     def run(self):
         while not self.done:
             dt = self.clock.tick(self.fps)
