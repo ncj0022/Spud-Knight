@@ -16,8 +16,8 @@ class BattleScreen(BaseState):
         self.running = True
 
         # Set battle and skill options
-        self.battle_options = ["Attack", "Skills", "Run"]
-        self.skill_options = ["Fry", "Spud", "Back"]
+        self.menu_lvl = 0
+        self.battle_options = [["Attack", "Skills", "Run"], ["Fry", "Spud", "Back"]]
 
     def startup(self, persistent):
         self.persist = persistent
@@ -52,7 +52,7 @@ class BattleScreen(BaseState):
 
     # Checks to see if player or enemy is alive
     # Player or enemy is alive if  hp is above 0
-    def is_alive(self, persistent):\
+    def is_alive(self, persistent):
         # If player alive is false, go to game over state
         if persistent["PLAYER"].is_alive == False:
             self.next_state = "GAME_OVER"
@@ -65,7 +65,7 @@ class BattleScreen(BaseState):
     # Render text on screen
     def render_text(self, index):
         color = pygame.Color("red") if index == self.active_index else pygame.Color("white")
-        return self.font.render(self.battle_options[index], True, color)
+        return self.font.render(self.battle_options[self.menu_lvl][index], True, color)
 
     # Set the position of text on screen
     def get_text_position(self, text, index):
@@ -74,15 +74,19 @@ class BattleScreen(BaseState):
 
     # Handle when event actions happen
     def handle_action(self):
-        if self.active_index == 0:
-            # Attack action
-            self.player_attack(self.persist)
-            self.enemy_attack(self.persist)
-        elif self.active_index == 1:
-            # Skill action
-            self.done = True
-        elif self.active_index == 2:
-            self.done = True
+        if self.menu_lvl == 0:
+            if self.active_index == 0:
+                # Attack action
+                self.player_attack(self.persist)
+                self.enemy_attack(self.persist)
+            elif self.active_index == 1:
+                # Skill action
+                self.menu_lvl = 1
+            elif self.active_index == 2:
+                self.done = True
+        elif self.menu_lvl == 1:
+            if self.active_index == 0:
+                self.done
 
     # Get key inputs for events
     def get_event(self, event):
@@ -110,7 +114,7 @@ class BattleScreen(BaseState):
     # Draw all moves done by player and enemy to screen
     def draw(self, surface):
         surface.fill(pygame.Color("black"))
-        bg = pygame.image.load("img\Forest background.png")
+        bg = pygame.image.load("img/Forest background.png")
         surface.blit(bg, (0,0))
 
         # Draw enemy
@@ -126,6 +130,6 @@ class BattleScreen(BaseState):
         self.persist["ENEMY"].basic_health()
 
         # Draw player action menu
-        for index, option in enumerate(self.battle_options):
+        for index, option in enumerate(self.battle_options[0]):
             text_render = self.render_text(index)
             surface.blit(text_render, self.get_text_position(text_render, index))

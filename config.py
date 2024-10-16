@@ -7,11 +7,11 @@ FPS = 60
 PLAYER_SPEED = 2
 
 # Images
-panel_img = pygame.image.load('img\panel_img.png')
+panel_img = pygame.image.load('img/panel_img.png')
 # List of Enemy images
-enemy_img = [pygame.image.load('img\Enemies\pipo-enemy001.png'), pygame.image.load('img\Enemies\pipo-enemy002.png'), pygame.image.load('img\Enemies\pipo-enemy003.png'),
-            pygame.image.load('img\Enemies\pipo-enemy004.png'), pygame.image.load('img\Enemies\pipo-enemy005.png'), pygame.image.load('img\Enemies\pipo-enemy006.png'),
-            pygame.image.load('img\Enemies\pipo-enemy007.png'), pygame.image.load('img\Enemies\pipo-enemy008.png'), pygame.image.load('img\Enemies\pipo-enemy009.png'),]
+enemy_img = [pygame.image.load('img/Enemies/pipo-enemy001.png'), pygame.image.load('img/Enemies/pipo-enemy002.png'), pygame.image.load('img/Enemies/pipo-enemy003.png'),
+            pygame.image.load('img/Enemies/pipo-enemy004.png'), pygame.image.load('img/Enemies/pipo-enemy005.png'), pygame.image.load('img/Enemies/pipo-enemy006.png'),
+            pygame.image.load('img/Enemies/pipo-enemy007.png'), pygame.image.load('img/Enemies/pipo-enemy008.png'), pygame.image.load('img/Enemies/pipo-enemy009.png'),]
 # List of Boss images
 
 
