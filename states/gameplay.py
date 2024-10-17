@@ -44,7 +44,7 @@ class Gameplay(BaseState):
                 if column == "W":
                     Trees(self, j, i)
                 if column == "P":
-                    self.persist["PLAYER"] = Player(self, j, i, 2, 2, 5, 2)
+                    self.persist["PLAYER"] = Player(self, j, i, 5, 4, 5, 2)
                 if column == "M":
                     Mountain(self, j, i)
                 if column == "H":
@@ -62,7 +62,14 @@ class Gameplay(BaseState):
 
     # Create Monster for random encounter and store in persist variable
     def createWildEnemy(self):
-        self.persist["ENEMY"] = Enemy(self, 3,3,5,1)
+        enemy_index = random.randint(0,2)
+        self.persist["ENEMY"] = Enemy(self, 
+                                      enemy_stats[enemy_index][0], 
+                                      enemy_stats[enemy_index][1], 
+                                      enemy_stats[enemy_index][2], 
+                                      enemy_stats[enemy_index][3], 
+                                      enemy_stats[enemy_index][4], 
+                                      enemy_stats[enemy_index][5])
 
     #Reset Battle Screen State
     def reset(self):

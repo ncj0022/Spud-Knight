@@ -216,7 +216,7 @@ class Player(pygame.sprite.Sprite):
         pass
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, game, atk, defense, max_hp, lvl):
+    def __init__(self, game, name, image, atk, defense, max_hp, lvl):
         self.game = game
         self._layer = ENEMY_LAYER
         self.groups = self.game.enemies
@@ -225,6 +225,7 @@ class Enemy(pygame.sprite.Sprite):
         self.width = TILE_SIZE * 2
         self.height = TILE_SIZE * 2
 
+        self.name = name
         self.atk = atk
         self.defense = defense
         self.max_hp = max_hp
@@ -232,7 +233,7 @@ class Enemy(pygame.sprite.Sprite):
         self.lvl = lvl
         self.is_alive = True
 
-        self.image = enemy_img[random.randint(0,8)]
+        self.image = image
 
         self.rect = self.image.get_rect()
         self.rect.x = self.width

@@ -25,10 +25,14 @@ class BattleScreen(BaseState):
     # Handle what happens when player chooses ATTACK action
     def player_attack(self, persistent):
         print("-----Player Turn-----")
-        damage = persistent["PLAYER"].atk - persistent["ENEMY"].defense
+        max_damage = round((persistent["PLAYER"].atk - persistent["ENEMY"].defense/2)/2)
+        min_damage = round((persistent["PLAYER"].atk - persistent["ENEMY"].defense/2)/4)
+        damage = random.randrange(min_damage, max_damage)
+        print(damage)
         if damage > 0:
-            persistent["ENEMY"].hp = persistent["ENEMY"].current_hp - damage
+            persistent["ENEMY"].current_hp = persistent["ENEMY"].current_hp - damage
             if persistent["ENEMY"].current_hp <= 0:
+                print("You defeated the monster!")
                 persistent["ENEMY"].is_alive = False
                 self.is_alive(persistent)
             print("Enemy HP: ", persistent["ENEMY"].current_hp)
@@ -39,7 +43,9 @@ class BattleScreen(BaseState):
     # Handles the enemies turn
     def enemy_attack(self, persistent):
         print("-----Enemy Turn-----")
-        damage = persistent["ENEMY"].atk - persistent["PLAYER"].defense
+        max_damage = round((persistent["ENEMY"].atk - persistent["PLAYER"].defense/2)/2)
+        min_damage = round((persistent["ENEMY"].atk - persistent["PLAYER"].defense/2)/4)
+        damage = random.randrange(min_damage, max_damage)
         if damage > 0:
             persistent["PLAYER"].current_hp = persistent["PLAYER"].current_hp - damage
             if persistent["PLAYER"].current_hp <= 0:

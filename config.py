@@ -29,6 +29,15 @@ GREEN = (0, 255, 0)
 BLACK = (0,0,0)
 
 
+# Enemy stats
+# self, game, name, image, atk, defense, max_hp, lvl
+enemy_stats = [
+    ["Bat", enemy_img[0], 1, 1, 3, 1],
+    ["Wolf", enemy_img[1], 2, 1, 4, 2],
+    ["Cobra", enemy_img[2], 2, 2, 2, 2]
+]
+
+
 # Maps
 tilemap = [
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
