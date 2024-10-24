@@ -27,7 +27,10 @@ class BattleScreen(BaseState):
         print("-----Player Turn-----")
         max_damage = round((persistent["PLAYER"].atk - persistent["ENEMY"].defense/2)/2)
         min_damage = round((persistent["PLAYER"].atk - persistent["ENEMY"].defense/2)/4)
-        damage = random.randrange(min_damage, max_damage)
+        if min_damage <= 1 or max_damage < min_damage:
+            damage = 1
+        else :
+            damage = random.randrange(min_damage, max_damage)
         print(damage)
         if damage > 0:
             persistent["ENEMY"].current_hp = persistent["ENEMY"].current_hp - damage
@@ -45,7 +48,10 @@ class BattleScreen(BaseState):
         print("-----Enemy Turn-----")
         max_damage = round((persistent["ENEMY"].atk - persistent["PLAYER"].defense/2)/2)
         min_damage = round((persistent["ENEMY"].atk - persistent["PLAYER"].defense/2)/4)
-        damage = random.randrange(min_damage, max_damage)
+        if min_damage <= 0 or max_damage < min_damage:
+            damage = 1
+        else:
+            damage = random.randrange(min_damage, max_damage)
         if damage > 0:
             persistent["PLAYER"].current_hp = persistent["PLAYER"].current_hp - damage
             if persistent["PLAYER"].current_hp <= 0:

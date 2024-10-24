@@ -99,7 +99,7 @@ class Player(pygame.sprite.Sprite):
         if pressed_keys[K_UP]:
             self.y_change -= PLAYER_SPEED
             self.facing = 'up'
-             # Check for random encounter at each step
+             # Check for random encounter at each
             self.random_encounter()
         if pressed_keys[K_DOWN]:
             self.y_change += PLAYER_SPEED
@@ -132,7 +132,6 @@ class Player(pygame.sprite.Sprite):
                     self.rect.x = hits[0].rect.left - self.rect.width
                 if self.x_change < 0:
                     self.rect.x = hits[0].rect.right
-
         # Collision for if you are moving in y direction
         if direction == "y":
             hits = pygame.sprite.spritecollide(self, self.game.npcs, False)
