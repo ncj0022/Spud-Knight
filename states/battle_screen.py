@@ -72,6 +72,9 @@ class BattleScreen(BaseState):
         # If enemy alive is false, return to overworld state
         elif persistent["ENEMY"].is_alive == False:
             self.next_state = "GAMEPLAY"
+            exp = persistent["ENEMY"].lvl + random.randrange(1, 10)
+            #player_exp = player_exp + exp
+            print("You won! You gained " + str(exp)+ " experience.")
             self.done = True
     
     # Render text on screen
