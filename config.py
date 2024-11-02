@@ -28,6 +28,7 @@ BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 BLACK = (0,0,0)
 
+player_base_stats = []
 
 # Enemy stats
 # self, game, name, image, atk, defense, max_hp, lvl

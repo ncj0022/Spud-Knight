@@ -33,7 +33,11 @@ class Gameplay(BaseState):
 
         self.createTilemap()
         self.createWildEnemy()
+        self.dialogue()
         self.startup(self.persist)
+
+    def dialogue(self):
+        Dialogue.draw_textbox(self.screen, panel_img, )
 
     # Creates tile map based on map in config file
     # Places a specific tile based on what letter it is
