@@ -42,7 +42,7 @@ class BattleScreen(BaseState):
         else:
             print("Your attack did nothing")
             print("Enemy HP: ", persistent["ENEMY"].current_hp)
-
+    
     # Handles the enemies turn
     def enemy_attack(self, persistent):
         print("-----Enemy Turn-----")
@@ -73,10 +73,15 @@ class BattleScreen(BaseState):
         elif persistent["ENEMY"].is_alive == False:
             self.next_state = "GAMEPLAY"
             exp = persistent["ENEMY"].lvl + random.randrange(1, 10)
-            #player_exp = player_exp + exp
+            persistent["PLAYER"].exp += exp
             print("You won! You gained " + str(exp)+ " experience.")
             self.done = True
     
+    def is_lvl_up(self, persistent):
+        if self.persistent["PLAYER"].exp >= self.persistent["PLAYER"].lvl ^ 3:
+            self.persistent["PLAYER"].lvl += 1
+            # Address gainig multiple levels eventually
+
     # Render text on screen
     def render_text(self, index):
         color = pygame.Color("red") if index == self.active_index else pygame.Color("white")

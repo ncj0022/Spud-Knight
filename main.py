@@ -1,5 +1,6 @@
 import sys
 import pygame
+from pygame.locals import *
 from config import WIN_HEIGHT, WIN_WIDTH
 from states.gameplay import Gameplay
 from states.splash import Splash
@@ -11,6 +12,7 @@ from game import Game
 # Initiate Pygame
 pygame.init()
 # Set the screen size
+flags = DOUBLEBUF
 screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption('Spud Knight')
 # Instatiate all of the game states

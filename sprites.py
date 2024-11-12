@@ -18,7 +18,7 @@ class Spritesheet:
 class Player(pygame.sprite.Sprite):
     # defining player
     # Takes paramters game , a x position, and a y position
-    def __init__(self, game, x, y, atk, defense, max_hp, lvl):
+    def __init__(self, game, x, y, atk, defense, max_hp, lvl, exp):
         self.game = game
         # Adds player to the player layer
         self._layer = PLAYER_LAYER
@@ -44,6 +44,7 @@ class Player(pygame.sprite.Sprite):
         self.current_hp = max_hp
         self.max_hp = max_hp
         self.lvl = lvl
+        self.exp = exp
 
         # Health Bar
         self.health_bar_length = 512
@@ -117,7 +118,12 @@ class Player(pygame.sprite.Sprite):
             self.facing = 'right'
              # Check for random encounter at each step
             self.random_encounter()
+        if pressed_keys[K_ESCAPE]:
+            self.quit = True # Quit for testing and debugging
+        if pressed_keys[K_p]:
+            print(self.exp) # Test to see if player experience is increasing
     
+    # check for random encounters
     def random_encounter(self):
         chance = random.randint(0,100)
         if chance == 8:

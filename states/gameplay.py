@@ -45,7 +45,7 @@ class Gameplay(BaseState):
                 if column == "W":
                     Trees(self, j, i)
                 if column == "P":
-                    self.persist["PLAYER"] = Player(self, j, i, 5, 4, 5, 2)
+                    self.persist["PLAYER"] = Player(self, j, i, 5, 4, 5, 2, 0)
                 if column == "M":
                     Mountain(self, j, i)
                 if column == "H":
