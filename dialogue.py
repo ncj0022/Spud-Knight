@@ -1,25 +1,20 @@
-import pygame
+import pygame, sys
 from config import *
-from sprites import *
+from states.base import *
+from pygame.locals import *
 
-class Dialogue:
-    def __init__(self, game):
-        self.game = game
-        self.text = ""
-        self.text_box = panel_img
+def dialogue(screen, border_width, border_height):
+    # Draw image to the screen in order to use it as a text box
+    screen.blit(panel_img, (0,0))
 
-    def draw_textbox(screen, box_img, box_pos):
-        screen.blit(box_img, box_pos)
+    font = pygame.font.Font(None, 24)
+    # render text that you want on the screen
+    text = font.render("This is a test of the text you want to put on the scrren.", True, BLACK)
+    text_rect = text.get_rect()
+    pygame.draw.rect(text, None, text_rect, 1)
 
-    # Render text on screen
-    def render_text(self, index):
-        color = pygame.Color("red") if index == self.active_index else pygame.Color("white")
-        return self.font.render(self.battle_options[self.menu_lvl][index], True, color)
+    # draw text to screen with border width and height
+    screen.blit(text, (0+border_width, 0+border_height))
 
-    # Set the position of text on screen
-    def get_text_position(self, text, index):
-        center = (self.screen_rect.center[0] + 125, self.screen_rect.center[1] + (index * 25) + 125)
-        return text.get_rect(center=center)
+    print("Dialogue complete")
 
-    def talk(text):
-        pass

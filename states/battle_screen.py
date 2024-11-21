@@ -1,6 +1,7 @@
 import pygame
 from sprites import *
 from config import *
+from dialogue import *
 from .gameplay import Gameplay
 from .base import *
 
@@ -112,6 +113,8 @@ class BattleScreen(BaseState):
     def get_event(self, event):
         if event.type == pygame.QUIT:
             self.quit = True
+        if event.type == pygame.K_d:
+            print("Testing")
         elif event.type == pygame.KEYUP:
             # Going Up
             if event.key == pygame.K_UP:

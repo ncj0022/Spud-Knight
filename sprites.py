@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 from config import *
-from dialogue import Dialogue
 import math
 import random
 
