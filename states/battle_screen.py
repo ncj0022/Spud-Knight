@@ -113,8 +113,6 @@ class BattleScreen(BaseState):
     def get_event(self, event):
         if event.type == pygame.QUIT:
             self.quit = True
-        if event.type == pygame.K_d:
-            print("Testing")
         elif event.type == pygame.KEYUP:
             # Going Up
             if event.key == pygame.K_UP:
@@ -132,6 +130,9 @@ class BattleScreen(BaseState):
                 self.active_index = 2 if self.active_index >= 1 else 1
             elif event.key == pygame.K_RETURN:
                 self.handle_action()
+            elif event.key == pygame.K_d:
+                dialogue(self.screen, 25, 25)
+                print("Testing")
 
     # Draw to screen battle layout
     # Draw all moves done by player and enemy to screen
@@ -156,3 +157,7 @@ class BattleScreen(BaseState):
         for index, option in enumerate(self.battle_options[0]):
             text_render = self.render_text(index)
             surface.blit(text_render, self.get_text_position(text_render, index))
+
+        # Draws ddialogue box to screen but with a preset text
+        # Needs to be fixed to where it updates text based on actions taking place
+        dialogue(self.screen, 24, 24)

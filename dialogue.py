@@ -11,7 +11,7 @@ def dialogue(screen, border_width, border_height):
     # render text that you want on the screen
     text = font.render("This is a test of the text you want to put on the scrren.", True, BLACK)
     text_rect = text.get_rect()
-    pygame.draw.rect(text, None, text_rect, 1)
+    pygame.draw.rect(text, BLACK, text_rect, 1)
 
     # draw text to screen with border width and height
     screen.blit(text, (0+border_width, 0+border_height))
