@@ -2,13 +2,12 @@ import pygame
 from .base import BaseState
 from sprites import *
 from config import *
+from dialogue import *
 
 class Gameplay(BaseState):
     def __init__(self):
-        print("Overworld Gameplay")
         super(Gameplay,self).__init__()
         self.next_state = "BATTLE_SCREEN"
-        #self.battle_state = "BATTLE_SCREEN"
         self.persist = {}
         
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
@@ -33,7 +32,6 @@ class Gameplay(BaseState):
 
         self.createTilemap()
         self.createWildEnemy()
-        #self.dialogue()
         self.startup(self.persist)
 
     # Creates tile map based on map in config file
@@ -56,7 +54,6 @@ class Gameplay(BaseState):
                     NPC_One(self, j, i)
                 if column == "E":
                     Mountain_Floor(self, j, i)
-
 
     def startup(self, persistent):
        persistent = self.persist
@@ -86,8 +83,6 @@ class Gameplay(BaseState):
         self.reset()
         
     def draw(self, surface):
-        surface.fill(pygame.Color("green"))
-        self.screen.fill(GREEN)
         self.all_sprites.draw(self.screen)
         self.clock.tick(FPS)
         pygame.display.update()

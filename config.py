@@ -5,6 +5,7 @@ WIN_HEIGHT = 720
 TILE_SIZE = 32
 FPS = 60
 PLAYER_SPEED = 2
+SCREEN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 
 # Images
 panel_img = pygame.image.load('img/panel_img.png')
@@ -27,6 +28,7 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 BLACK = (0,0,0)
+WHITE = (255, 255, 255)
 
 # player stats
 player_atk = 1

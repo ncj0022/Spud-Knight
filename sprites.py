@@ -3,6 +3,7 @@ from pygame.locals import *
 from config import *
 import math
 import random
+from dialogue import dialogue
 
 class Spritesheet:
     def __init__(self, file):
@@ -32,6 +33,7 @@ class Player(pygame.sprite.Sprite):
 
         self.x_change = 0
         self.y_change = 0
+        self.collide_check = False
 
         self.facing = 'down'
         self.animation_loop = 1
@@ -44,6 +46,7 @@ class Player(pygame.sprite.Sprite):
         self.max_hp = max_hp
         self.lvl = lvl
         self.exp = exp
+        self.name = player_name
 
         # Health Bar
         self.health_bar_length = 512
@@ -93,6 +96,8 @@ class Player(pygame.sprite.Sprite):
         self.x_change = 0
         self.y_change = 0
 
+        self.talk_to()
+
         self.basic_health()
 
     def movement(self):
@@ -101,22 +106,22 @@ class Player(pygame.sprite.Sprite):
             self.y_change -= PLAYER_SPEED
             self.facing = 'up'
              # Check for random encounter at each
-            self.random_encounter()
+            #self.random_encounter()
         if pressed_keys[K_DOWN]:
             self.y_change += PLAYER_SPEED
             self.facing = 'down'
              # Check for random encounter at each step
-            self.random_encounter()
+            #self.random_encounter()
         if pressed_keys[K_LEFT]:
             self.x_change -= PLAYER_SPEED
             self.facing = 'left'
              # Check for random encounter at each step
-            self.random_encounter()
+            #self.random_encounter()
         if pressed_keys[K_RIGHT]:
             self.x_change += PLAYER_SPEED
             self.facing = 'right'
              # Check for random encounter at each step
-            self.random_encounter()
+            #self.random_encounter()
         if pressed_keys[K_ESCAPE]:
             self.quit = True # Quit for testing and debugging
         if pressed_keys[K_p]:
@@ -130,6 +135,8 @@ class Player(pygame.sprite.Sprite):
             self.game.battle = True
 
     def collide_npcs(self, direction):
+        keys = pygame.key.get_pressed()
+        space_released = True
         # Collision for if you are moving in the x direction
         if direction == "x":
             hits = pygame.sprite.spritecollide(self, self.game.npcs, False)
@@ -138,6 +145,8 @@ class Player(pygame.sprite.Sprite):
                     self.rect.x = hits[0].rect.left - self.rect.width
                 if self.x_change < 0:
                     self.rect.x = hits[0].rect.right
+                self.collide_check = True
+
         # Collision for if you are moving in y direction
         if direction == "y":
             hits = pygame.sprite.spritecollide(self, self.game.npcs, False)
@@ -146,6 +155,8 @@ class Player(pygame.sprite.Sprite):
                     self.rect.y = hits[0].rect.top - self.rect.height
                 if self.y_change < 0:
                     self.rect.y = hits[0].rect.bottom
+                self.collide_check = True
+        
 
     def collide_boss(self, direction):
         pass
@@ -214,6 +225,12 @@ class Player(pygame.sprite.Sprite):
                 if self.animation_loop >= 3:
                     self.animation_loop = 1
 
+
+    def talk_to(self):
+        if self.collide_check == True:
+            dialogue(SCREEN, "This is a test", 20, 20)
+            print("Test")
+
     def equiped_items():
         pass
 
@@ -271,39 +288,6 @@ class NPC_One(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-
-    def collide_player(self, direction):
-        # Collision for if you are moving in the x direction
-        if direction == "x":
-            hits = pygame.sprite.spritecollide(self, self.game.player, False)
-            if hits:
-                print("Testing")
-                self.dialogue("Testing NPC dialogue.", self.image, self.surface)
-
-        # Collision for if you are moving in y direction
-        if direction == "y":
-            print("Testing")
-            hits = pygame.sprite.spritecollide(self, self.game.npcs, False)
-            if hits:
-                print("Testing")
-                self.dialogue("Testing NPC dialogue.", self.image)
-
-    def dialogue(self, text,icon):
-        surface = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT/4))
-        self.font = pygame.font.Font(None, 24)
-        #where text is a list containing all the individual lines of text, and icon is a surface to display next to it
-        surface.blit(icon,(0,surface.get_height()-64)) #paste the 64x64 image onto the bottom left of the screen
-        for line in text:     #for each line we need to display
-            blackBarRectPos = (64,surface.get_height()-64)  #position of the black bar at the bottom of the screen, to the right of the icon
-            blackBarRectSize = (surface.get_width()-64,64)  #size of the black bar
-            pygame.draw.rect(surface,(0,0,0),pygame.Rect(blackBarRectPos,blackBarRectSize)) #draw the black bar onto the screen
-            textSurf = self.font.render(line,1,(255,255,255),(0,0,0))  #render the text (replace fontObject with whatever you called the font you're using for ingame text)
-            surface.blit(textSurf,(80,surface.get_height()-56))  #put it onto the screen
-            talk = True #variable for the while loop
-            while talk: #now we have a while loop so the game effectively pauses 
-                pygame.event.pump() #keep pygame updated
-                if pygame.key.get_pressed()[pygame.K_SPACE]: talk = False #if the user presses spacebar
-                pygame.display.flip() #keep the window active
 
 class Trees(pygame.sprite.Sprite):
     def __init__(self,game, x, y):

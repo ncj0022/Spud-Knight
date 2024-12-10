@@ -8,7 +8,6 @@ from .base import *
 class BattleScreen(BaseState):
     def __init__(self):
         super(BattleScreen,self).__init__()
-        print("Battle Screen")
         self.active_index = 0
         self.next_state = "GAMEPLAY"
         self.persist = {}
@@ -18,6 +17,7 @@ class BattleScreen(BaseState):
 
         # Set battle and skill options
         self.menu_lvl = 0
+        self.msg = ""
         self.battle_options = [["Attack", "Skills", "Run"], ["Fry", "Spud", "Back"]]
 
     def startup(self, persistent):
@@ -36,10 +36,10 @@ class BattleScreen(BaseState):
         if damage > 0:
             persistent["ENEMY"].current_hp = persistent["ENEMY"].current_hp - damage
             if persistent["ENEMY"].current_hp <= 0:
-                print("You defeated the monster!")
+                self.msg = "Your attack did nothing..."
                 persistent["ENEMY"].is_alive = False
                 self.is_alive(persistent)
-            print("Enemy HP: ", persistent["ENEMY"].current_hp)
+            self.msg = persistent["ENEMY"].name + " took " + str(damage)
         else:
             print("Your attack did nothing")
             print("Enemy HP: ", persistent["ENEMY"].current_hp)
@@ -58,7 +58,7 @@ class BattleScreen(BaseState):
             if persistent["PLAYER"].current_hp <= 0:
                 persistent["PLAYER"].is_alive = False
                 self.is_alive(persistent)
-            print("Player HP: ", persistent["PLAYER"].current_hp)
+            self.msg = persistent["PLAYER"].name + " took " + str(damage)
         else:
             print("Enemy attack did nothing.")
             print("Player HP: ", persistent["PLAYER"].current_hp)
@@ -130,9 +130,6 @@ class BattleScreen(BaseState):
                 self.active_index = 2 if self.active_index >= 1 else 1
             elif event.key == pygame.K_RETURN:
                 self.handle_action()
-            elif event.key == pygame.K_d:
-                dialogue(self.screen, 25, 25)
-                print("Testing")
 
     # Draw to screen battle layout
     # Draw all moves done by player and enemy to screen
@@ -160,4 +157,4 @@ class BattleScreen(BaseState):
 
         # Draws ddialogue box to screen but with a preset text
         # Needs to be fixed to where it updates text based on actions taking place
-        dialogue(self.screen, 24, 24)
+        dialogue(self.screen, self.msg, 24, 24)
