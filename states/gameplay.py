@@ -14,6 +14,8 @@ class Gameplay(BaseState):
         self.clock = pygame.time.Clock()
         self.running = True
 
+        self.talk_to = ["This is a sentence to test the dialogue box."]
+
         # Create spritesheets
         self.character_spritesheet = Spritesheet('img/Player/character.png')
         self.terrain_spritesheet = Spritesheet('img/terrain.png')
@@ -80,6 +82,7 @@ class Gameplay(BaseState):
         # Update all sprites
         # Call reset function to prepare for next encounter
         self.all_sprites.update()
+        self.dialogue
         self.reset()
         
     def draw(self, surface):
